@@ -1,0 +1,58 @@
+<!-- 边栏 -->
+{include file="apidoc/left_menu" /}
+
+<!-- 内容区 -->
+<div id="main-content">
+    <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+        <button class="close fixed" style="margin-top: 4px;">&times;</button>
+        <div class="alert-content">这是内容</div>
+    </div>
+    <div id="main" class="main">
+
+        <div class="main-title">
+            <h2>新增第三方账号</h2>
+        </div>
+        <div class="tab-wrap">
+            <div class="tab-content">
+                <form action="/admin/apidoc/save" method="post" class="form-horizontal">
+                    <div class="form-item">
+                        <label class="item-label">第三方名称<span class="check-tips">（列如：小镇演义微信公众号）</span> </label>
+                        <div class="controls">
+                            <input type="text" class="text input-large" name="name" value="">
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <label class="item-label">APPID<span class="check-tips">（例如：小镇演义公众号的APPID）</span> </label>
+                        <div class="controls">
+                            <input type="text" class="text input-large" name="appid" value="">
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <label class="item-label">secret<span class="check-tips">（例如：小镇演义公众号的secret）</span> </label>
+                        <div class="controls">
+                            <input type="text" class="text input-large" name="secret" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <label class="item-label">用途描述<span class="check-tips">（例如：微信支付、微信授权登录）</span> </label>
+                        <div class="controls">
+                            <label class="textarea input-large">
+                                <textarea name="describe"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <label class="item-label"></label>
+                        <div class="controls">
+                            <button type="submit" class="btn submit-btn " >确 定
+                            </button>
+                            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

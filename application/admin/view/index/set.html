@@ -1,0 +1,89 @@
+<!-- 边栏 -->
+<div class="sidebar">
+    <!-- 子导航 -->
+    
+        <div id="subnav" class="subnav">
+            <h3><i class="icon icon-unfold"></i>系统设置</h3>                        
+            <ul class="side-sub-menu">
+                <li><a class="item" href="#">网站设置</a></li>
+                <li><a class="item" href="#">配置管理</a></li>
+                <li><a class="item" href="#">菜单管理</a></li>
+            </ul>  
+
+            <h3><i class="icon icon-unfold"></i>数据备份</h3>                        
+            <ul class="side-sub-menu">
+                <li><a class="item" href="#">备份数据库</a></li>
+                <li><a class="item" href="#">还原数据库</a></li>                        
+            </ul>                        
+        </div>
+    
+    <!-- /子导航 -->
+</div>
+<!-- /边栏 -->
+<!-- 内容区 -->
+<div id="main-content">
+    <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+        <button class="close fixed" style="margin-top: 4px;">&times;</button>
+        <div class="alert-content">这是内容</div>
+    </div>
+    <div id="main" class="main">
+
+<div class="main-title">
+	<h2>网站设置</h2>
+</div>
+	<div class="tab-wrap">
+	<ul class="tab-nav nav">
+    	<li class="current"><a href="/admin/index/set">基本配置</a></li>
+        <li ><a href="#">内容配置</a></li>
+        <li ><a href="#">用户配置</a></li>
+        <li ><a href="#">系统配置</a></li>		
+    </ul>
+	<div class="tab-content">
+<form action="/onethink/index.php?s=/admin/config/save.html" method="post" class="form-horizontal">
+<div class="form-item">
+		<label class="item-label">网站标题<span class="check-tips">（网站标题前台显示标题）</span> </label>
+		<div class="controls">
+		<input type="text" class="text input-large" name="config[WEB_SITE_TITLE]" value="云宿网络用户管理系统">				
+		</div>
+	</div><div class="form-item">
+		<label class="item-label">网站描述<span class="check-tips">（网站搜索引擎描述）</span> </label>
+		<div class="controls">
+		<label class="textarea input-large">
+			<textarea name="config[WEB_SITE_DESCRIPTION]">云宿网络</textarea>
+		</label>				
+		</div>
+	</div><div class="form-item">
+		<label class="item-label">关闭站点<span class="check-tips">（站点关闭后其他用户不能访问，管理员可以正常访问）</span> </label>
+		<div class="controls">
+		<select name="config[WEB_SITE_CLOSE]">
+			<option value="0" >关闭</option><option value="1" selected>开启</option>			</select>				
+		</div>
+	</div><div class="form-item">
+		<label class="item-label">网站关键字<span class="check-tips">（网站搜索引擎关键字）</span> </label>
+		<div class="controls">
+		<label class="textarea input-large">
+			<textarea name="config[WEB_SITE_KEYWORD]">云宿网络</textarea>
+		</label>				
+		</div>
+	</div><div class="form-item">
+		<label class="item-label">网站备案号<span class="check-tips">（设置在网站底部显示的备案号，如“沪ICP备12007941号-2）</span> </label>
+		<div class="controls">
+		<input type="text" class="text input-large" name="config[WEB_SITE_ICP]" value="">				
+		</div>
+	</div><div class="form-item">
+		<label class="item-label">后台色系<span class="check-tips">（后台颜色风格）</span> </label>
+		<div class="controls">
+		<select name="config[COLOR_STYLE]">
+			<option value="default_color" selected>默认</option><option value="blue_color" >紫罗兰</option>			</select>				
+		</div>
+	</div>		<div class="form-item">
+		<label class="item-label"></label>
+		<div class="controls">
+			<button type="submit" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>				
+			<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+		</div>
+	</div>
+                   </form>
+		      </div>
+        </div>
+    </div>

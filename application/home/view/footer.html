@@ -1,0 +1,71 @@
+ <!-- 底部 -->
+  
+    <footer class="footer">
+      <div class="container">
+          <p> 本站由 <strong><a href="http://www.icloudinn.com" target="_blank">云宿网络</a></strong> 强力驱动</p>
+      </div>
+    </footer>
+
+<script type="text/javascript">
+(function(){
+  var ThinkPHP = window.Think = {
+    "ROOT"   : "/onethink", //当前网站地址
+    "APP"    : "/onethink/index.php?s=", //当前项目地址
+    "PUBLIC" : "/onethink/Public", //项目公共目录地址
+    "DEEP"   : "/", //PATHINFO分割符
+    "MODEL"  : ["3", "1", "html"],
+    "VAR"    : ["m", "c", "a"]
+  }
+})();
+</script>
+
+  <script type="text/javascript">
+
+ //      $(document)
+ //        .ajaxStart(function(){
+ //           alert("1");
+ //          $("button:submit").addClass("log-in").attr("disabled", true);
+ //        })
+ //        .ajaxStop(function(){
+ //          $("button:submit").removeClass("log-in").attr("disabled", false);
+ //          alert("2");
+ //        });
+
+
+ //      $("form").submit(function(){
+ //        var self = $(this);
+ //        $.post(self.attr("action"), self.serialize(), success, "json");
+ //         alert("3");
+ //        return false;
+ // alert("4");
+ //        function success(data){
+ //          if(data.status){
+ //            window.location.href = data.url;
+ //          } else {
+ //            self.find(".Validform_checktip").text(data.info);
+ //            //刷新验证码
+ //            $(".reloadverify").click();
+ //          }
+ //        }
+ //      });
+
+    $(function(){
+      var verifyimg = $(".verifyimg").attr("src");
+            $(".reloadverify").click(function(){
+                if( verifyimg.indexOf('?')>0){
+                    $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+                }else{
+                    $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+                }
+            });
+    });
+  </script>
+ <!-- 用于加载js代码 -->
+<!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
+<div class="hidden"><!-- 用于加载统计代码等隐藏元素 -->
+  
+</div>
+
+  <!-- /底部 -->
+</body>
+</html>

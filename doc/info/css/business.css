@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+html,body{pading:0;margin:0;
+font-family: 'Century Gothic', "Microsoft YaHei", Trebuchet MS, Arial,
+		Verdana, Tahoma, "DejaVu Sans", "Liberation sans",
+		"Bitstream Vera Sans", sans-serif;font-size:14px;
+		background-color: #F3F4F8;}
+.business{width: 1000px;margin: 0 auto;}

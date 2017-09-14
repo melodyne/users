@@ -1,0 +1,81 @@
+<!-- 边栏 -->
+{include file="apidoc/left_menu" /}
+
+<!-- 内容区 -->
+<div id="main-content">
+    <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+        <button class="close fixed" style="margin-top: 4px;">&times;</button>
+        <div class="alert-content">这是内容</div>
+    </div>
+    <div id="main" class="main">
+
+        <div class="main-title">
+            <h2>申请审核</h2>
+        </div>
+        <div class="cf">
+            <div class="fl">
+                <button class="btn ajax-post confirm" url="/onethink/index.php?s=/admin/user/changestatus/method/deleteUser.html" target-form="ids">删 除</button>
+            </div>
+
+            <!-- 高级搜索 -->
+            <div class="search-form fr cf">
+                <div class="sleft">
+                    <input type="text" name="nickname" class="search-input" value="" placeholder="请输入用户昵称或者ID">
+                    <a class="sch-btn" href="javascript:;" id="search" url="#"><i class="btn-search"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- 数据列表 -->
+        <div class="data-table table-striped">
+            <table class="">
+                <thead>
+                <tr>
+                    <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                    <th class="">序号</th>
+                    <th class="">系统名</th>
+                    <th class="">app_id</th>
+                    <th class="">状态</th>
+                    <th class="">描述</th>
+                    <th class="">创建时间</th>
+                    <th class="">审核</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="m"}
+                <tr>
+                    <td><input class="ids" type="checkbox" name="id[]" value="2" /></td>
+                    <td>{$key+1}</td>
+                    <td>{$m.name}</td>
+                    <td>{$m.app_id}</td>
+                    <td>
+                        {switch name="$m.audit_status"}
+                        {case value="0"}待审核{/case}
+                        {case value="1"}通过审核{/case}
+                        {case value="2"}驳回{/case}
+                        {default /}异常
+                        {/switch}
+                    </td>
+                    <td>{$m.desc}</td>
+                    <td>{$m.create_time}</td>
+                    <td>
+                        {switch name="$m.audit_status"}
+                        {case value="0"}
+                        <a href="confirAudit?app_id={$m.app_id}&a=1">通过</a>
+                        <a href="confirAudit?app_id={$m.app_id}&a=2">驳回</a>
+                        {/case}
+                        {default /}已审核
+                        {/switch}
+
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+        </div>
+        <div class="page">
+            <div>
+                {$list->render()}
+            </div>
+        </div>
+    </div>
+</div>

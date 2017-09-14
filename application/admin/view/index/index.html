@@ -1,0 +1,150 @@
+<style>
+    body{padding: 0}
+</style>
+
+<!-- 边栏 -->
+<div class="sidebar">
+    <!-- 子导航 -->
+    
+    <!-- /子导航 -->
+</div>
+<!-- /边栏 -->
+
+<!-- 内容区 -->
+<div id="main-content">
+    <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+        <button class="close fixed" style="margin-top: 4px;">&times;</button>
+        <div class="alert-content">这是内容</div>
+    </div>
+    <div id="main" class="main">
+            
+    <!-- 主体 -->
+    <div id="indexMain" class="index-main">
+       <!-- 插件块 -->
+       <div class="container-span"> <div class="container-span top-columns cf">
+	<dl class="show-num-mod">
+		<dt><i class="count-icon user-count-icon"></i></dt>
+		<dd>
+			<strong>2</strong>
+			<span>用户数</span>
+		</dd>
+	</dl>
+	<dl class="show-num-mod">
+		<dt><i class="count-icon user-action-icon"></i></dt>
+		<dd>
+			<strong>7</strong>
+			<span>用户行为</span>
+		</dd>
+	</dl>
+	<dl class="show-num-mod">
+		<dt><i class="count-icon doc-count-icon"></i></dt>
+		<dd>
+			<strong>1</strong>
+			<span>在线人数</span>
+		</dd>
+	</dl>
+	<dl class="show-num-mod">
+		<dt><i class="count-icon doc-modal-icon"></i></dt>
+		<dd>
+			<strong>3</strong>
+			<span>今日新增</span>
+		</dd>
+	</dl>
+	<dl class="show-num-mod">
+		<dt><i class="count-icon category-count-icon"></i></dt>
+		<dd>
+			<strong>2</strong>
+			<span>子系统数</span>
+		</dd>
+	</dl>
+</div><div class="span2">
+	<div class="columns-mod">
+		<div class="hd cf">
+			<h5>系统信息</h5>
+			<div class="title-opt">
+			</div>
+		</div>
+		<div class="bd">
+			<div class="sys-info">
+				<table>
+					<tr>
+						<th>云宿用户系统版本</th>
+						<td>v1.0.1&nbsp;&nbsp;&nbsp;</td>
+					</tr>
+					<tr>
+						<th>服务器操作系统</th>
+						<td>WINNT</td>
+					</tr>
+					<tr>
+						<th>ThinkPHP版本</th>
+						<td>5.0.0</td>
+					</tr>
+					<tr>
+						<th>php版本</th>
+						<td>本系统要求php最低版本5.4</td>
+					</tr>
+					<tr>
+						<th>MYSQL版本</th>
+						<td>5.5.40</td>
+					</tr>
+					<tr>
+						<th>上传限制</th>
+						<td>2M</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div><div class="span2">
+	<div class="columns-mod">
+		<div class="hd cf">
+			<h5>产品团队</h5>
+			<div class="title-opt">
+			</div>
+		</div>
+		<div class="bd">
+			<div class="sys-info">
+				<table>
+					<tr>
+						<th>总策划</th>
+						<td>陈万洲</td>
+					</tr>
+					<tr>
+						<th>研发团队</th>
+						<td>陈万洲</td>
+					</tr>
+					<tr>
+						<th>界面及用户体验团队</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>官方网址</th>
+						<td><a href="http://www.icloudinn.com" target="_blank">www.icloudinn.com</a></td>
+					</tr>
+					<tr>
+						<th>官方QQ群</th>
+						<td><a target="_blank" href="http://wp.qq.com/wpa/qunwpa?idkey=14ba57a5273cc820d298cc394227276b22177217e413dfe658aa3d3b34c119e0"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="云宿网络" title="云宿网络"></a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+    
+<script type="text/javascript">
+    /* 插件块关闭操作 */
+    $(".title-opt .wm-slide").each(function(){
+        $(this).click(function(){
+            $(this).closest(".columns-mod").find(".bd").toggle();
+            $(this).find("i").toggleClass("mod-up");
+        });
+    })
+    $(function(){
+        // $('#main').attr({'id': 'indexMain','class': 'index-main'});
+        $('.copyright').html('<div class="copyright"> ©2016 <a href="http://www.icloudinn.com" target="_blank">www.icloudinn.com</a> 海口云宿网络科技有限公司版权所有</div>');
+        $('.sidebar').remove();
+    })
+</script>

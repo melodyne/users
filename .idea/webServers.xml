@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="4d3d33db-40a8-46d2-b8c1-6e2412e1e5e0" name="users" url="http://users.icloudinn.com">
+        <fileTransfer host="120.76.232.65" port="21" rootFolder="/phpstudy/www/users.icloudinn.com" password="dfd3dfdfdfc4dfd9dfdfdf84dfdfdfd9df84df9edf9fdf9c" username="yunsu_users">
+          <advancedOptions>
+            <advancedOptions compatibilityMode="true" dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" showHiddenFiles="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

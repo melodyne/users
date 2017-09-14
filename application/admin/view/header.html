@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>云宿用户系统</title>
+    <link href="/public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="/public/Admin/css/base.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/public/Admin/css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/public/Admin/css/module.css">
+    <link rel="stylesheet" type="text/css" href="/public/Admin/css/style.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/public/Admin/css/default_color.css" media="all">
+     <!--[if lt IE 9]>
+    <script type="text/javascript" src="/public/static/jquery-1.10.2.min.js"></script>
+    <![endif]--><!--[if gte IE 9]><!-->
+    <script type="text/javascript" src="/public/static/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/public/Admin/js/jquery.mousewheel.js"></script>
+    <!--<![endif]-->
+    
+</head>
+<body>
+    <!-- 头部 -->
+    <div class="header">
+        <!-- Logo -->
+        <span class="logo"></span>
+        <!-- /Logo -->
+
+        <!-- 主导航 -->
+        <ul class="main-nav">
+            <li class=""><a href="/admin">首页</a></li>
+            <li class="{if condition="request()->action() eq 'users'"}current{/if}"><a href="/admin/index/users">用户</a></li>
+            <li class=""><a href="#">分析</a></li>
+            <li class=""><a href="#">系统</a></li>
+            <li class="{if condition="request()->action() eq 'set'"}current{/if}"><a href="/admin/index/set">设置</a></li>
+            <li class="{if condition="request()->controller() eq 'Apidoc'"}current{/if}"><a href="/admin/apidoc">接入</a></li>
+        </ul>
+        <!-- /主导航 -->
+
+        <!-- 用户栏 -->
+        <div class="user-bar">
+            <a href="javascript:;" class="user-entrance"><i class="icon-user"></i></a>
+            <ul class="nav-list user-menu hidden">
+                <li class="manager">你好，<em title="root">root</em></li>
+                <li><a href="#">修改密码</a></li>
+                <li><a href="#">修改昵称</a></li>
+                <li><a href="#">退出</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /头部 -->
+
