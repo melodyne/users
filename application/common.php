@@ -209,16 +209,17 @@ function paramFromPost($name,$required=false,$default=null){
  * @param null $cookie
  */
 function httpClient($url,$type=null,$paras=null,$cookie=null) {
+    var_dump($paras);die();
     $curl = curl_init();//初始化curl模块
     curl_setopt($curl, CURLOPT_URL, $url);//登录提交的地址
     curl_setopt($curl, CURLOPT_HEADER, 0);//是否显示头信息
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);//是否自动显示返回的信息
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);//禁用后cURL将终止从服务端进行验证
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);//检查公用名是否存在，并且是否与提供的主机名匹配。
-
     if($type=="post"){
         curl_setopt($curl, CURLOPT_POST, 1);//post方式提交
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($paras));//要提交的信息
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($curl, CURLOPT_POSTFIELDS,json_decode($paras));//要提交的信息
     }
     if($cookie!=null){
         curl_setopt($curl, CURLOPT_COOKIEJAR, $cookie); //设置Cookie信息保存在指定的文件中
@@ -233,8 +234,8 @@ function httpClient($url,$type=null,$paras=null,$cookie=null) {
  * @param $url 接口地址
  * @return mixed 数组
  */
-function wxServerRequest($url,$type=null,$paras=null){
-    $output=httpClient($url,$type=null,$paras=null);
+function wxServerRequest($url,$type = null,$paras = null){
+    $output=httpClient($url,$type,$paras);
     return json_decode($output,true);
 }
 

@@ -2,20 +2,14 @@
 namespace app\api\controller;
 
 
-use think\Cache;
-use ChuanglanSmsHelper\ChuanglanSmsApi;
-
 use common\controller\ApiBaseController;
 use app\api\model\Users as UsersModel;//总用户系统模型
-use app\api\model\User as UserModel;//直播用户系统模型
 use app\api\model\ThreeAccount as ThreeAccountModel;
-use app\admin\model\Subsystem as SubsystemModel;
-use think\Loader;
 use think\Request;//总用户系统模型
+use tools\WechatServer;
 
 /**
 *  微信
-*
 */
 class Wechat extends ApiBaseController{
 
@@ -100,24 +94,23 @@ class Wechat extends ApiBaseController{
             'touser'=> 'require',
             'template_id'=> 'require',
             'form_id'=> 'require',
-            'data'=>'require'
         ];
+
         $param =  Request::instance()->param();
         $this->validate($param,$rule);
-
         $m = ThreeAccountModel::get(['appid'=>$param['appid']]);
         if($m==null)error("检查微信公众号、小程序等第三方账号是否更换，请到用户系统后台修改APPID!");
 
         /* 第一步 获取token */
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$param['appid']."&secret=$m->secret";
-        $rt = wxServerRequest($url);
+        $rt = WechatServer::get($url);
 
         if(!isset($rt['access_token'])){
             return api(0,'微信服务器返回错误信息',$rt);
         }
         /* 第二步 发送模版消息 */
         $url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=".$rt['access_token'];
-        $rt = wxServerRequest($url,'post',$param);
+        $rt = WechatServer::post($url,$param);
         success($rt);
     }
 

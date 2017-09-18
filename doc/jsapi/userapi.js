@@ -106,7 +106,7 @@ bxsAPI.apis.push({
 	url: "/api/wechat/templateMsg",
 	method : "POST",
 	params : [
-		{field:"appid",phone:true,desc:"微信APPID",sample:"2342343543"},
+		{field:"appid",phone:true,desc:"微信APPID",sample:"wxbce6a412f0b48781"},
 		{field:"touser",phone:true,desc:"接收者（用户）的 openid",sample:"2342343543"},
 		{field:"template_id",phone:true,desc:"所需下发的模板消息的id",sample:"2342343543"},
 		{field:"form_id",phone:true,desc:"表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id",sample:"2342343543"},
