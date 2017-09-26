@@ -209,7 +209,6 @@ function paramFromPost($name,$required=false,$default=null){
  * @param null $cookie
  */
 function httpClient($url,$type=null,$paras=null,$cookie=null) {
-    var_dump($paras);die();
     $curl = curl_init();//初始化curl模块
     curl_setopt($curl, CURLOPT_URL, $url);//登录提交的地址
     curl_setopt($curl, CURLOPT_HEADER, 0);//是否显示头信息
