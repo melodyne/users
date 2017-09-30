@@ -14,9 +14,10 @@ class Concern extends Model
      * 我关注的
      * @return \think\model\relation\HasOne
      */
-    public function myConcern(){
+    public function MeConcern(){
 
-        return $this->hasOne('Users','yunsu_id','concern_user_id');
+        return $this->hasOne('Users','yunsu_id','concern_user_id')
+            ->field('yunsu_id,nickname,head_img_url');
     }
 
     /**
@@ -25,7 +26,8 @@ class Concern extends Model
      */
     public function concernMe(){
 
-        return $this->hasOne('Users','yunsu_id','user_id');
+        return $this->hasOne('Users','yunsu_id','user_id')
+            ->field('yunsu_id,nickname,head_img_url');
     }
 
 }

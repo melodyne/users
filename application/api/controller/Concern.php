@@ -4,6 +4,7 @@ namespace app\api\controller;
 use common\controller\ApiBaseController;
 use app\api\model\Users as UsersModel;//总用户系统模型
 use app\api\model\Concern as ConcernModel;
+use think\Request;
 
 /**
 *  用户控制器
@@ -14,45 +15,33 @@ class Concern extends ApiBaseController{
      * 关注好友列表
      */
     public function index(){
-        $type = paramFromGet('type');
-        if($type==1){
-            $list = ConcernModel::where(['concern_user_id'=>$this->userId])->paginate(20);
-        }else{
-            $list = ConcernModel::where(['user_id'=>$this->userId])->paginate(20);
-        }
-
-        if($type==2){
-            $list2 = $list->toArray();
-            $list2 = $list2['data'];
-        }
-        $n = 0;
-        foreach ($list as $k=>$m){
-            if($type==1){
-                $user = UsersModel::get(['yunsu_id'=>$m->user_id]);
-            }else{
-                $user = UsersModel::get(['yunsu_id'=>$m->concern_user_id]);
-            }
-            $user->toArray();
-            unset($user['access_token']);
-            unset($user['pwz']);
-            unset($user['yun_coin']);
-            unset($user['create_time']);
-            $m['user'] = $user;
-            $list2[$k]['user'] = $user;
-
-            if($type==2){
-                $cm = ConcernModel::get(['user_id'=>$m['concern_user_id'],'concern_user_id'=>$this->userId]);
-                if($cm==null){
-                    $n++;
-                    array_splice($list2,$k,1);
-                }
+        // 0我关注的 1关注我的 2相互关注的
+        $rule = [
+            'type'=>'require|in:0,1,2'
+        ];
+        $msg = [
+            'type.require'=>'关注类型不能为空',
+            'type.in'=>'关注类型错误：0我关注的 1关注我的 2相互关注的'
+        ];
+        $param = Request::instance()->get();
+        $this->validate($param,$rule,$msg);
+        if($param['type']==0){
+            $list = ConcernModel::where(['concern_user_id'=>$this->userId])->paginate();
+            foreach ($list as $m){
+                $m->me_concern;
             }
         }
-        $list = $list->toArray();
-        if($type==2){
-            $list['total'] = $list['total']-$n;
-            $list['data']= $list2;
+        if($param['type']==1){
+            $list = ConcernModel::where(['user_id'=>$this->userId])->paginate();
+            foreach ($list as $m){
+                $m->concern_me;
+            }
         }
+
+        if($param['type'] ==2){
+            error("相互关注的功能还没有实现");
+        }
+
         success($list);
     }
     /**

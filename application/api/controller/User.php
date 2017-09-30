@@ -452,24 +452,20 @@ class User extends ApiBaseController{
     public function sendsms(){
         $phone = paramFromPost('phone',true);
         $action = paramFromPost('action',true);
+        if(!isPhone($phone))error("无效的手机号码！");
         $tiop = "";//0：短信登录;1：手机注册；2：修改密码；3：更换绑定手机
         if($action==0){
             $tiop = "短信登录";
-        }
-
-        if($action==1){
+        }elseif($action==1){
             $tiop = "手机注册";
-        }
-
-        if($action==2){
+        }elseif($action==2){
             $tiop = "修改密码";
-        }
-
-        if($action==3){
+        }elseif($action==3){
             $tiop = "绑定手机";
-        }
-        if($action==4){
+        }elseif($action==4){
             $tiop = "更换绑定手机";
+        }else{
+            error("action代码错误！");
         }
 
         $code = rand(1000,9999);
@@ -482,7 +478,6 @@ class User extends ApiBaseController{
 
     /**
      * 短信登录（不存在该电话，则注册并登录）
-     * @return \think\response\Json
      */
     public function smsLogin(){
 
