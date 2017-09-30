@@ -1,9 +1,9 @@
 <?php
 namespace app\api\controller;
 
-use common\controller\ApiBaseController;
 use app\api\model\Users as UsersModel;//总用户系统模型
 use app\api\model\Concern as ConcernModel;
+use app\common\controller\ApiBaseController;
 use think\Request;
 
 /**
@@ -26,15 +26,21 @@ class Concern extends ApiBaseController{
         $param = Request::instance()->get();
         $this->validate($param,$rule,$msg);
         if($param['type']==0){
-            $list = ConcernModel::where(['concern_user_id'=>$this->userId])->paginate();
+            $list = ConcernModel::where(['user_id'=>$this->userId])->paginate();
             foreach ($list as $m){
-                $m->me_concern;
+                $u = $m->me_concern;
+                unset($m['me_concern']);
+                $m['nickname']=$u['nickname'];
+                $m['head_img_url']=$u['head_img_url'];
             }
         }
         if($param['type']==1){
-            $list = ConcernModel::where(['user_id'=>$this->userId])->paginate();
+            $list = ConcernModel::where(['concern_user_id'=>$this->userId])->paginate();
             foreach ($list as $m){
-                $m->concern_me;
+                $u = $m->concern_me;
+                unset($m['concern_me']);
+                $m['nickname']=$u['nickname'];
+                $m['head_img_url']=$u['head_img_url'];
             }
         }
 
