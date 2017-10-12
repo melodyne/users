@@ -22,10 +22,12 @@ class Users extends Model
         
     }
 
-    public function getStatusTextAttr($value,$data)
-    {
-
-        return "sd";
+    /**
+     * 修改token
+     */
+    public function changeToken(){
+        $this->access_token = base64_encode(md5(uniqid(rand())).time());
+        $this->save();
     }
 
 }

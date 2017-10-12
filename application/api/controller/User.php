@@ -24,8 +24,34 @@ class User extends ApiBaseController{
     ];
 
     /**
+     * 导入账号到腾讯云IM
+     */
+    protected function accountImport($userId,$nickname="无昵称",$headImgUrl=""){
+
+        $config = config('thirdaccount.qcloud');
+        $imConfig = $config['im_sdk'];
+        $sdkAppId = $imConfig['sdk_app_id'];
+        $identifier = $imConfig['identifier'];
+        $privateKeyPath = $imConfig['private_key_path'];
+        $signaturePath = $imConfig['signature_path'];
+
+        // 引入 extend/wechat-sdk/wechat.class.php
+        if(!Loader::import('TimRestApi', EXTEND_PATH.'qcloud/imsdk', '.php'))error("imsdk导入失败！");
+        // 初始化API
+        $restApi = createRestAPI();
+        $restApi->init($sdkAppId, $identifier);
+        // 生成签名，有效期一天 对于FastCGI，可以一直复用同一个签名，但是必须在签名过期之前重新生成签名
+        $ret = $restApi->generate_user_sig("andmin", '86400', $privateKeyPath, $signaturePath);
+        if ($ret == null) error("签名生成失败");
+        if($restApi->account_import($userId,$nickname,$headImgUrl)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
      * 单点身份授权认证
-     * @return [type] [description]
      */
     public function identityAuth(){
         $appid = paramFromPost('app_id',true);
@@ -58,7 +84,6 @@ class User extends ApiBaseController{
 
     /**
      * 用户信息
-     * @param $id
      */
     public function read($id){
         $user = UsersModel::get($id);
@@ -154,7 +179,7 @@ class User extends ApiBaseController{
     }
 
      /**
-     * 通过Api注册
+     * 通过邮箱/电话注册
      */
      public function register(){
 
@@ -183,11 +208,12 @@ class User extends ApiBaseController{
              'phone' =>$phone,
              'email' =>$email,
             );
-         $result = UsersModel::create($paras);
-         if ($result) {
-             return api(100,"注册成功",$result);
+         $user = UsersModel::create($paras);
+         if ($user) {
+             $this->accountImport($user->yunsu_id,$user->nickname,$user->head_img_url);
+             return api(100,"注册成功",$user);
          } else {
-             error("注册失败",$result);
+             error("注册失败",$user);
          }
      }
 
@@ -313,6 +339,7 @@ class User extends ApiBaseController{
 
           $user = UsersModel::create($paras);
           if ($user) {
+              $this->accountImport($user->yunsu_id,$user->nickname,$user->head_img_url);
               if($this->doLogin($user)){
                   return api(100,"用户系统登录验证成功",$user);
               }
@@ -383,8 +410,8 @@ class User extends ApiBaseController{
 
         $user = UsersModel::create($userInfo);
         if ($user) {
+            $this->accountImport($user->yunsu_id,$user->nickname,$user->head_img_url);
             if($this->doLogin($user)){
-                $this->accountImport($user->yunsu_id);
                 return api(100,"用户系统登录验证成功",$user);
             }else{
                 return api(0,"登录失败，请检查总用户系统缓存是否开启！");
@@ -501,9 +528,13 @@ class User extends ApiBaseController{
         }else{ // 不存在则注册
             $user = UsersModel::create(['phone' =>$phone]);
             $user->access_token = base64_encode(md5(uniqid(rand())).time());
-            $user->save();
-            $this->doLogin($user);
-            api(100,"登录成功",$user);
+            if($user->save()){
+                $this->accountImport($user->yunsu_id,$user->nickname,$user->head_img_url);
+                $this->doLogin($user);
+                api(100,"登录成功",$user);
+            }else{
+                error("注册登录失败！");
+            }
         }
     }
 
@@ -526,6 +557,21 @@ class User extends ApiBaseController{
             api(100,"手机绑定成功",$user);
         } else {
             error("该用户不存在，请重新登录！");
+        }
+    }
+
+    /**
+     * 账号导入到腾讯云IM
+     */
+    public function accountImportToIM(){
+        $yunsuId = paramFromGet("yunsu_id",true);
+        $user = UsersModel::get($yunsuId);
+        if($user==null)error("该账号还没注册！");
+        $rerult = $this->accountImport($yunsuId,$user->nickname,$user->head_img_url);
+        if($rerult){
+            success($rerult);
+        }else{
+            api(0,"导入失败！",$rerult);
         }
     }
 }

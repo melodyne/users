@@ -28,19 +28,17 @@ class Concern extends ApiBaseController{
         if($param['type']==0){
             $list = ConcernModel::where(['user_id'=>$this->userId])->paginate();
             foreach ($list as $m){
-                $u = $m->me_concern;
+                $m->me_concern;
+                $m['user']= $m['me_concern'];
                 unset($m['me_concern']);
-                $m['nickname']=$u['nickname'];
-                $m['head_img_url']=$u['head_img_url'];
             }
         }
         if($param['type']==1){
             $list = ConcernModel::where(['concern_user_id'=>$this->userId])->paginate();
             foreach ($list as $m){
-                $u = $m->concern_me;
+                $m->concern_me;
+                $m['user']= $m['concern_me'];
                 unset($m['concern_me']);
-                $m['nickname']=$u['nickname'];
-                $m['head_img_url']=$u['head_img_url'];
             }
         }
 
